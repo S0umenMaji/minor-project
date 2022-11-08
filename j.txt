@@ -1,0 +1,20 @@
+        <?php
+ if(isset($_POST['course-review-submit'])){
+    include 'dbconnect.php';
+    $review_content=$_POST['course-review-content'];
+    $review_rating=$_POST['course-rating'];
+    $reviewer_id= $_SESSION['session_user_id'];
+    $cour_id=$_GET['cid'];
+    $sql2="INSERT INTO `course_review` (`course_id`,`user_id`,`rating`,`course_rev`,`timestamp`)values('$cour_id','$reviewer_id','$review_rating','$review_content',current_timestamp());";
+    $result2=mysqli_query($conn,$sql2);
+    if($result2)
+    {
+        header("Location: course-details.php?cid=$cour_id&reviewsuccess=true");   
+    }else{
+        header("Location: course-details.php?cid=$cour_id&reviewfailed=true");
+    }
+
+}
+
+
+?>
